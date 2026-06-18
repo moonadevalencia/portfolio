@@ -70,6 +70,14 @@ body {
   animation-delay: -2s;
 }
 
+.editorial-card {
+  animation: editorial-float 5.8s ease-in-out infinite;
+}
+
+.editorial-card:nth-child(2n) {
+  animation-delay: -1.8s;
+}
+
 @keyframes wave-float {
   0%,
   100% {
@@ -89,6 +97,17 @@ body {
 
   50% {
     transform: translateY(-0.45rem) rotate(1deg);
+  }
+}
+
+@keyframes editorial-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.35deg);
+  }
+
+  50% {
+    transform: translateY(-0.75rem) rotate(0.55deg);
   }
 }
 

@@ -1,0 +1,110 @@
+---
+import atlasCover from '../assets/editorial/01-atlas-diminuto.svg';
+import greenhouseCover from '../assets/editorial/02-cuentos-del-invernadero.svg';
+import '../styles/global.css';
+
+const navigation = [
+  { label: 'Home', href: '/' },
+  { label: 'Illustration', href: '/illustration' },
+  { label: 'Concept Art', href: '/concept-art' },
+  { label: 'Editorial', href: '/editorial' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const projects = [
+  {
+    title: 'Atlas diminuto',
+    description: 'Un proyecto editorial ilustrado como un pequeño viaje visual entre mapas, rutas y paisajes imaginarios.',
+    href: '/editorial/atlas-diminuto',
+    cover: atlasCover,
+  },
+  {
+    title: 'Cuentos del invernadero',
+    description: 'Una propuesta de portada y narrativa visual para relatos botánicos, íntimos y llenos de textura.',
+    href: '/editorial/cuentos-del-invernadero',
+    cover: greenhouseCover,
+  },
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Proyectos editoriales de portfolio con portadas ilustradas, descripción y páginas de detalle."
+    />
+    <meta name="robots" content="index, follow" />
+    <title>Editorial | Portfolio de Ilustración</title>
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
+      <nav
+        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left"
+        aria-label="Navegación principal"
+      >
+        <a href="/" class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]" aria-label="Ir al inicio">
+          Nombre Artista
+        </a>
+        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
+          {
+            navigation.map((item) => (
+              <li>
+                <a
+                  class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+                  href={item.href}
+                  aria-current={item.href === '/editorial' ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8 lg:py-24" aria-labelledby="editorial-title">
+        <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Editorial</p>
+        <h1 id="editorial-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
+          Portadas y proyectos editoriales
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]">
+          Dos piezas editoriales presentadas como portadas principales. Cada proyecto abre una página independiente con más contexto visual y conceptual.
+        </p>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-5 pb-20 sm:px-8 lg:pb-28" aria-label="Proyectos editoriales">
+        <ul class="grid items-start justify-center gap-10 md:grid-cols-2 lg:gap-16">
+          {
+            projects.map((project) => (
+              <li class="editorial-card">
+                <a
+                  href={project.href}
+                  class="group block rounded-[2.25rem] border-3 border-[#231f20] bg-[#fffaf2] p-4 text-center shadow-[10px_10px_0_#231f20] transition duration-300 hover:-translate-y-3 hover:scale-[1.025] hover:shadow-[15px_15px_0_#ee8d73] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+                >
+                  <img
+                    src={project.cover.src}
+                    width={project.cover.width}
+                    height={project.cover.height}
+                    alt={`Portada de ${project.title}`}
+                    class="mx-auto aspect-[3/4] w-full max-w-sm rounded-[1.6rem] object-cover transition duration-300 group-hover:rotate-1 group-hover:scale-[1.02]"
+                  />
+                  <h2 class="mt-6 font-serif text-3xl font-black text-[#231f20]">{project.title}</h2>
+                  <p class="mx-auto mt-3 max-w-md text-base leading-7 text-[#59433b]">{project.description}</p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+
+    <footer class="border-t border-[#231f20]/10 px-5 py-10 text-center text-sm text-[#59433b] sm:px-8">
+      <p><strong class="text-[#231f20]">Nombre Artista</strong> · Portfolio de ilustración y diseño gráfico.</p>
+    </footer>
+  </body>
+</html>

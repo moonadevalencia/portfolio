@@ -1,0 +1,63 @@
+---
+import cover from '../../assets/editorial/02-cuentos-del-invernadero.svg';
+import '../../styles/global.css';
+
+const navigation = [
+  { label: 'Home', href: '/' },
+  { label: 'Illustration', href: '/illustration' },
+  { label: 'Concept Art', href: '/concept-art' },
+  { label: 'Editorial', href: '/editorial' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Detalle del proyecto editorial Cuentos del invernadero, con portada ilustrada y explicación conceptual." />
+    <meta name="robots" content="index, follow" />
+    <title>Cuentos del invernadero | Editorial</title>
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left" aria-label="Navegación principal">
+        <a href="/" class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]" aria-label="Ir al inicio">Nombre Artista</a>
+        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
+          {
+            navigation.map((item) => (
+              <li>
+                <a class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-24" aria-labelledby="project-title">
+        <figure class="mx-auto w-full max-w-md lg:mx-0">
+          <img src={cover.src} width={cover.width} height={cover.height} alt="Portada del proyecto editorial Cuentos del invernadero" class="rounded-[2rem] border-3 border-[#231f20] bg-[#fffaf2] shadow-[12px_12px_0_#231f20]" />
+        </figure>
+
+        <article class="rounded-[2rem] border-3 border-[#231f20] bg-[#fffaf2]/85 p-6 text-center shadow-[10px_10px_0_#ee8d73] sm:p-8 lg:text-left">
+          <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Proyecto editorial</p>
+          <h1 id="project-title" class="mt-3 font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl">Cuentos del invernadero</h1>
+          <p class="mt-6 text-lg leading-8 text-[#59433b]">
+            Proyecto de portada para una colección de relatos botánicos. La dirección visual combina geometría de invernadero, motivos florales y una paleta cálida para construir una pieza editorial cercana y evocadora.
+          </p>
+          <p class="mt-5 text-lg leading-8 text-[#59433b]">
+            La composición busca equilibrar estructura y organicidad: líneas arquitectónicas para ordenar la lectura y formas naturales para aportar movimiento, textura y carácter narrativo.
+          </p>
+          <a href="/editorial" class="mt-8 inline-flex rounded-full border-2 border-[#231f20] bg-[#ffd36e] px-7 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#231f20] transition hover:-translate-y-1 hover:bg-[#ffad8f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]">
+            Volver a Editorial
+          </a>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
