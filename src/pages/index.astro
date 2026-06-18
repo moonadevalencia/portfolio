@@ -1,44 +1,70 @@
 ---
 import '../styles/global.css';
+import profileImage from '../assets/img/pfp.webp';
+
+type ImageSource = string | { src: string; width?: number; height?: number };
+type ImageModule = { default: ImageSource };
 
 const navigation = [
-  { label: 'Home', href: '/' },
-  { label: 'Illustration', href: '/illustration' },
+  { label: 'Inicio', href: '/' },
+  { label: 'Ilustración', href: '/illustration' },
   { label: 'Concept Art', href: '/concept-art' },
   { label: 'Editorial', href: '/editorial' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Contacto', href: '/contact' },
 ];
+
+const projectCoverModules = import.meta.glob<ImageModule>('../assets/img/*.{jpg,jpeg,png,webp,avif,gif,svg}', {
+  eager: true,
+});
+
+const getProjectCover = (fileName: string) => {
+  const source = projectCoverModules[`../assets/img/${fileName}`]?.default;
+
+  if (!source) return undefined;
+
+  return {
+    src: typeof source === 'string' ? source : source.src,
+    width: typeof source === 'string' ? undefined : source.width,
+    height: typeof source === 'string' ? undefined : source.height,
+  };
+};
 
 const projects = [
   {
-    title: 'Sueños botánicos',
-    category: 'Illustration',
+    title: 'Alice in Wonderland',
+    category: 'Ilustración',
     gradient: 'from-[#ffad8f] via-[#ffd36e] to-[#fff7bf]',
+    cover: getProjectCover('alicia.webp'),
   },
   {
-    title: 'Mensajera lunar',
-    category: 'Character Design',
+    title: 'Kate Smith',
+    category: 'Diseño de Personajes',
     gradient: 'from-[#7dd3fc] via-[#c4b5fd] to-[#fbcfe8]',
+    cover: getProjectCover('kate-smith2.webp'),
   },
   {
-    title: 'Mañana de mercado',
-    category: 'Visual Development',
+    title: 'Noah y Lumo',
+    category: 'Ilustración',
     gradient: 'from-[#fca5a5] via-[#fdba74] to-[#86efac]',
+    cover: getProjectCover('Pagina_10.webp'),
   },
   {
-    title: 'Atlas diminuto',
+    title: 'Huellas del vacío',
     category: 'Editorial',
     gradient: 'from-[#fde68a] via-[#f0abfc] to-[#a7f3d0]',
+    cover: getProjectCover('portfolio.webp'),
   },
   {
-    title: 'Notas del bosque',
+    title: 'Piplup y Oshawott',
     category: 'Proyecto personal',
     gradient: 'from-[#bbf7d0] via-[#93c5fd] to-[#ddd6fe]',
+    cover: getProjectCover('pokemon.webp'),
   },
   {
-    title: 'Habitaciones al sol',
-    category: 'Illustration',
+    title: 'Byler',
+    category: 'Diseño de Personajes',
     gradient: 'from-[#fed7aa] via-[#fecdd3] to-[#e9d5ff]',
+    cover: getProjectCover('byler.jpg'),
   },
 ];
 ---
@@ -53,7 +79,7 @@ const projects = [
       content="Portfolio personal de ilustración, diseño gráfico, character design, visual development y proyectos editoriales."
     />
     <meta name="robots" content="index, follow" />
-    <title>Portfolio de Ilustración y Diseño Gráfico</title>
+    <title>Portfolio de Moona</title>
   </head>
   <body>
     <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
@@ -66,7 +92,7 @@ const projects = [
           class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
           aria-label="Ir al inicio"
         >
-          Nombre Artista
+          Moona
         </a>
         <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
           {
@@ -87,22 +113,20 @@ const projects = [
         <div class="grid w-full items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <figure class="mx-auto w-full max-w-sm lg:mx-0">
             <div class="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border-4 border-[#231f20] bg-[#ffd36e] p-4 shadow-[18px_18px_0_#231f20]">
-              <div
-                class="flex h-full items-center justify-center rounded-[1.8rem] bg-gradient-to-br from-[#ffad8f] via-[#f7d7ff] to-[#9bd5ff] text-center"
-                role="img"
-                aria-label="Espacio reservado para una foto de perfil de la artista"
-              >
-                <div class="rounded-full border-4 border-[#231f20] bg-[#fffaf2]/85 px-8 py-7 shadow-lg">
-                  <span class="block text-5xl font-black" aria-hidden="true">Foto</span>
-                  <span class="mt-3 block text-xs font-black uppercase tracking-[0.28em] text-[#59433b]">Perfil</span>
-                </div>
-              </div>
+              <img
+                src={profileImage.src}
+                width={profileImage.width}
+                height={profileImage.height}
+                alt="Foto de perfil de Moona"
+                class="h-full w-full rounded-[1.8rem] object-cover"
+                decoding="async"
+              />
             </div>
-            <figcaption class="sr-only">Placeholder para añadir una fotografía de perfil.</figcaption>
+            <figcaption class="sr-only">Foto de perfil de Moona.</figcaption>
           </figure>
 
           <article class="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
-            <p class="mb-4 text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Illustration · Graphic Design</p>
+            <p class="mb-4 text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Ilustración · Diseño Gráfico</p>
             <h1 id="hero-title" class="font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
               Portfolio visual para mundos dibujados con intención.
             </h1>
@@ -149,10 +173,24 @@ const projects = [
               projects.map((project) => (
                 <li class="wave-card w-[16rem] shrink-0 sm:w-[20rem]">
                   <article class="group overflow-hidden rounded-[2rem] border-3 border-[#231f20] bg-[#fffaf2] shadow-[9px_9px_0_#231f20] transition duration-300 hover:-translate-y-2 hover:shadow-[13px_13px_0_#231f20]">
-                    <div class={`aspect-[4/5] bg-gradient-to-br ${project.gradient} p-5`} aria-hidden="true">
-                      <div class="grid h-full place-items-center rounded-[1.4rem] border-2 border-[#231f20]/70 bg-white/25">
-                        <span class="font-serif text-6xl font-black text-[#231f20]/80 transition group-hover:scale-110">{project.title.slice(0, 1)}</span>
-                      </div>
+                    <div class={`aspect-[4/5] bg-gradient-to-br ${project.gradient} p-5`}>
+                      {
+                        project.cover ? (
+                          <img
+                            src={project.cover.src}
+                            width={project.cover.width}
+                            height={project.cover.height}
+                            alt={`Portada del proyecto ${project.title}`}
+                            loading="lazy"
+                            decoding="async"
+                            class="h-full w-full rounded-[1.4rem] border-2 border-[#231f20]/70 object-cover transition duration-300 group-hover:scale-[1.03]"
+                          />
+                        ) : (
+                          <div class="grid h-full place-items-center rounded-[1.4rem] border-2 border-[#231f20]/70 bg-white/25" aria-hidden="true">
+                            <span class="font-serif text-6xl font-black text-[#231f20]/80 transition group-hover:scale-110">{project.title.slice(0, 1)}</span>
+                          </div>
+                        )
+                      }
                     </div>
                     <div class="p-5 text-left">
                       <p class="text-xs font-black uppercase tracking-[0.24em] text-[#d95c45]">{project.category}</p>
@@ -169,7 +207,7 @@ const projects = [
     </main>
 
     <footer class="border-t border-[#231f20]/10 px-5 py-10 text-center text-sm text-[#59433b] sm:px-8">
-      <p><strong class="text-[#231f20]">Nombre Artista</strong> · Portfolio de ilustración y diseño gráfico.</p>
+      <p><strong class="text-[#231f20]">Moona</strong> · Portfolio de ilustración y diseño gráfico.</p>
     </footer>
 
     <script>
