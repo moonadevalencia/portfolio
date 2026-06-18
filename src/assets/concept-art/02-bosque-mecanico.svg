@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Bosque mecánico</title>
+  <desc id="desc">Concept art de árboles mecánicos y vegetación fantástica.</desc>
+  <rect width="800" height="1000" fill="#ecfccb" />
+  <path d="M120 835h560" stroke="#231f20" stroke-width="24" stroke-linecap="round" />
+  <path d="M230 820V330M400 820V230M570 820V380" stroke="#59433b" stroke-width="28" stroke-linecap="round" />
+  <circle cx="230" cy="300" r="105" fill="#84cc9b" stroke="#231f20" stroke-width="14" />
+  <circle cx="400" cy="220" r="130" fill="#9bd5ff" stroke="#231f20" stroke-width="14" />
+  <circle cx="570" cy="360" r="100" fill="#ffd36e" stroke="#231f20" stroke-width="14" />
+  <circle cx="400" cy="220" r="45" fill="#ffad8f" stroke="#231f20" stroke-width="10" />
+  <path d="M310 575h180M310 640h180" stroke="#231f20" stroke-width="18" stroke-linecap="round" />
+</svg>

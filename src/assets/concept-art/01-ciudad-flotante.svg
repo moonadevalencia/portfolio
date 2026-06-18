@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Ciudad flotante</title>
+  <desc id="desc">Concept art de una ciudad elevada entre nubes.</desc>
+  <rect width="800" height="1000" fill="#dbeafe" />
+  <circle cx="620" cy="170" r="95" fill="#ffd36e" />
+  <path d="M80 720c170-120 470-120 640 0v160H80z" fill="#fffaf2" />
+  <path d="M180 470h440l-70 230H250z" fill="#c4b5fd" stroke="#231f20" stroke-width="16" />
+  <path d="M250 360h300l-55 110H305z" fill="#9bd5ff" stroke="#231f20" stroke-width="16" />
+  <path d="M330 240h140l80 120H250z" fill="#ffad8f" stroke="#231f20" stroke-width="16" />
+  <path d="M315 700l-55 125M485 700l55 125" stroke="#231f20" stroke-width="16" stroke-linecap="round" />
+  <path d="M185 575h430" stroke="#fffaf2" stroke-width="22" stroke-linecap="round" />
+</svg>

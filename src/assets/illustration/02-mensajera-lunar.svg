@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Mensajera lunar</title>
+  <desc id="desc">Personaje ilustrado con una luna grande y formas nocturnas.</desc>
+  <rect width="800" height="1000" fill="#1f2a44" />
+  <circle cx="590" cy="205" r="120" fill="#fff3bd" />
+  <path d="M510 130c55 60 48 145-20 195 105-25 165-120 120-215-30 2-65 8-100 20z" fill="#1f2a44" />
+  <path d="M400 210c105 0 190 90 190 205v315H210V415c0-115 85-205 190-205z" fill="#c4b5fd" stroke="#fffaf2" stroke-width="16" />
+  <circle cx="400" cy="300" r="92" fill="#ffad8f" stroke="#231f20" stroke-width="14" />
+  <path d="M300 460h200l55 300H245l55-300z" fill="#ffd36e" stroke="#231f20" stroke-width="14" />
+  <path d="M245 785h310" stroke="#fffaf2" stroke-width="18" stroke-linecap="round" />
+</svg>

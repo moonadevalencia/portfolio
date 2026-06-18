@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Mercado de mañana</title>
+  <desc id="desc">Escena editorial con puestos de mercado y colores vivos.</desc>
+  <rect width="800" height="1000" fill="#fffaf2" />
+  <path d="M80 280h640l-70 180H150L80 280z" fill="#ffad8f" stroke="#231f20" stroke-width="16" />
+  <path d="M120 280l60-95h440l60 95" fill="#9bd5ff" stroke="#231f20" stroke-width="16" />
+  <path d="M150 460h500v350H150z" fill="#ffd36e" stroke="#231f20" stroke-width="16" />
+  <circle cx="275" cy="610" r="55" fill="#d95c45" />
+  <circle cx="400" cy="610" r="55" fill="#84cc9b" />
+  <circle cx="525" cy="610" r="55" fill="#f7d7ff" />
+  <path d="M215 760h370" stroke="#231f20" stroke-width="20" stroke-linecap="round" />
+</svg>

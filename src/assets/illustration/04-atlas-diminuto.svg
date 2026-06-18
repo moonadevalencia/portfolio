@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Atlas diminuto</title>
+  <desc id="desc">Composición de mapa ilustrado con mar, caminos y montañas.</desc>
+  <rect width="800" height="1000" fill="#9bd5ff" />
+  <path d="M170 180c160-95 330-55 455 90 95 110 85 285-20 395-125 130-345 165-485 35C-10 580 20 270 170 180z" fill="#fffaf2" stroke="#231f20" stroke-width="16" />
+  <path d="M190 335c130 40 230 30 360-45" fill="none" stroke="#d95c45" stroke-width="18" stroke-linecap="round" stroke-dasharray="28 28" />
+  <path d="M250 620l85-150 90 150z" fill="#84cc9b" stroke="#231f20" stroke-width="14" />
+  <path d="M400 640l105-185 110 185z" fill="#ffd36e" stroke="#231f20" stroke-width="14" />
+  <circle cx="250" cy="300" r="36" fill="#ffad8f" stroke="#231f20" stroke-width="10" />
+  <circle cx="565" cy="745" r="42" fill="#f7d7ff" stroke="#231f20" stroke-width="10" />
+</svg>

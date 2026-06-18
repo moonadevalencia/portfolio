@@ -1,0 +1,114 @@
+---
+import GalleryGrid from '../components/GalleryGrid.astro';
+import '../styles/global.css';
+
+type ImageSource = string | { src: string; width?: number; height?: number };
+type ImageModule = { default: ImageSource };
+
+const navigation = [
+  { label: 'Home', href: '/' },
+  { label: 'Illustration', href: '/illustration' },
+  { label: 'Concept Art', href: '/concept-art' },
+  { label: 'Editorial', href: '/#editorial' },
+  { label: 'Contact', href: '/#contact' },
+];
+
+const imageModules = import.meta.glob<ImageModule>('../assets/concept-art/*.{jpg,jpeg,png,webp,avif,gif,svg}', {
+  eager: true,
+});
+
+const captionOverrides: Record<string, string> = {
+  'Bosque Mecanico': 'Diseño de entorno donde naturaleza y estructura mecánica conviven.',
+  'Ciudad Flotante': 'Concept de localización elevada con arquitectura fantástica y silueta clara.',
+  'Laboratorio Costero': 'Exploración de escenario costero para una historia de ciencia y aventura.',
+};
+
+const formatTitle = (path: string) => {
+  const fileName = path.split('/').pop() ?? 'concept-art';
+  return fileName
+    .replace(/\.[^.]+$/, '')
+    .replace(/^\d+[-_\s]*/, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+};
+
+const concepts = Object.entries(imageModules)
+  .map(([path, module]) => {
+    const source = module.default;
+    const title = formatTitle(path);
+
+    return {
+      src: typeof source === 'string' ? source : source.src,
+      width: typeof source === 'string' ? undefined : source.width,
+      height: typeof source === 'string' ? undefined : source.height,
+      title,
+      caption: captionOverrides[title] ?? `Concept art titulado ${title}.`,
+    };
+  })
+  .sort((a, b) => a.title.localeCompare(b.title));
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Galería de concept art con exploraciones visuales, escenarios, personajes y desarrollo de ideas."
+    />
+    <meta name="robots" content="index, follow" />
+    <title>Concept Art | Portfolio de Ilustración</title>
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
+      <nav
+        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left"
+        aria-label="Navegación principal"
+      >
+        <a
+          href="/"
+          class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
+          aria-label="Ir al inicio"
+        >
+          Nombre Artista
+        </a>
+        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
+          {
+            navigation.map((item) => (
+              <li>
+                <a
+                  class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+                  href={item.href}
+                  aria-current={item.href === '/concept-art' ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8 lg:py-24" aria-labelledby="gallery-title">
+        <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Galería</p>
+        <h1 id="gallery-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
+          Concept Art
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]">
+          Una galería para escenarios, personajes, exploraciones visuales y desarrollo de ideas.
+        </p>
+      </section>
+
+      <GalleryGrid
+        images={concepts}
+        emptyDirectory="src/assets/concept-art"
+        emptyTitle="Todavía no hay concept art"
+        emptyDescription="Añade imágenes en"
+        ariaLabel="Listado de concept art"
+      />
+    </main>
+  </body>
+</html>

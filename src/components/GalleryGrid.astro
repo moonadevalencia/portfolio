@@ -1,0 +1,137 @@
+---
+type GalleryImage = {
+  src: string;
+  width?: number;
+  height?: number;
+  title: string;
+  caption: string;
+};
+
+type Props = {
+  images: GalleryImage[];
+  emptyDirectory: string;
+  emptyTitle: string;
+  emptyDescription: string;
+  ariaLabel: string;
+};
+
+const { images, emptyDirectory, emptyTitle, emptyDescription, ariaLabel } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:pb-28" aria-label={ariaLabel}>
+  {
+    images.length > 0 ? (
+      <ul class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {images.map((image) => (
+          <li>
+            <button
+              type="button"
+              class="group block w-full rounded-[2rem] border-3 border-[#231f20] bg-[#fffaf2] p-3 text-left shadow-[8px_8px_0_#231f20] transition duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[12px_12px_0_#ee8d73] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+              data-gallery-button
+              data-src={image.src}
+              data-alt={image.title}
+              data-caption={image.caption}
+              aria-label={`Ampliar imagen ${image.title}`}
+            >
+              <img
+                src={image.src}
+                width={image.width}
+                height={image.height}
+                alt={image.title}
+                loading="lazy"
+                decoding="async"
+                class="aspect-[4/5] w-full rounded-[1.35rem] object-cover transition duration-300 group-hover:scale-[1.02]"
+              />
+              <span class="mt-4 block px-2 pb-1 font-serif text-xl font-black text-[#231f20]">
+                {image.title}
+              </span>
+              <span class="block px-2 pb-2 text-sm leading-6 text-[#59433b]">
+                {image.caption}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="rounded-[2rem] border-3 border-dashed border-[#231f20]/40 bg-white/45 px-6 py-16 text-center">
+        <h2 class="font-serif text-3xl font-black text-[#231f20]">{emptyTitle}</h2>
+        <p class="mx-auto mt-4 max-w-xl leading-7 text-[#59433b]">
+          {emptyDescription}{' '}
+          <code class="rounded bg-[#231f20]/10 px-2 py-1">{emptyDirectory}</code>
+        </p>
+      </div>
+    )
+  }
+</section>
+
+<dialog
+  class="m-auto max-h-[92vh] w-[min(92vw,72rem)] rounded-[2rem] border-3 border-[#231f20] bg-[#fffaf2] p-3 shadow-[14px_14px_0_#231f20] backdrop:bg-[#231f20]/65"
+  data-lightbox
+  aria-label="Vista ampliada de imagen"
+>
+  <figure>
+    <div class="flex justify-end pb-3">
+      <button
+        type="button"
+        class="rounded-full border-2 border-[#231f20] bg-[#ffd36e] px-5 py-2 text-sm font-black uppercase tracking-[0.16em] text-[#231f20] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+        data-lightbox-close
+      >
+        Cerrar
+      </button>
+    </div>
+    <img data-lightbox-image src="" alt="" class="max-h-[72vh] w-full rounded-[1.4rem] object-contain" />
+    <figcaption class="px-2 pb-3 pt-5 text-center">
+      <strong data-lightbox-title class="block font-serif text-2xl font-black text-[#231f20]"></strong>
+      <span data-lightbox-caption class="mx-auto mt-2 block max-w-3xl text-base leading-7 text-[#59433b]"></span>
+    </figcaption>
+  </figure>
+</dialog>
+
+<script>
+  const lightbox = document.querySelector('[data-lightbox]');
+  const lightboxImage = document.querySelector('[data-lightbox-image]');
+  const lightboxTitle = document.querySelector('[data-lightbox-title]');
+  const lightboxCaption = document.querySelector('[data-lightbox-caption]');
+  const closeButton = document.querySelector('[data-lightbox-close]');
+  const galleryButtons = document.querySelectorAll('[data-gallery-button]');
+
+  if (
+    lightbox instanceof HTMLDialogElement &&
+    lightboxImage instanceof HTMLImageElement &&
+    lightboxTitle instanceof HTMLElement &&
+    lightboxCaption instanceof HTMLElement
+  ) {
+    galleryButtons.forEach((button) => {
+      if (!(button instanceof HTMLElement)) return;
+
+      button.addEventListener('click', () => {
+        const src = button.dataset.src;
+        const alt = button.dataset.alt ?? 'Imagen ampliada';
+        const caption = button.dataset.caption ?? '';
+
+        if (!src) return;
+
+        lightboxImage.src = src;
+        lightboxImage.alt = alt;
+        lightboxTitle.textContent = alt;
+        lightboxCaption.textContent = caption;
+        lightbox.showModal();
+      });
+    });
+
+    closeButton?.addEventListener('click', () => lightbox.close());
+
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        lightbox.close();
+      }
+    });
+
+    lightbox.addEventListener('close', () => {
+      lightboxImage.removeAttribute('src');
+      lightboxImage.alt = '';
+      lightboxTitle.textContent = '';
+      lightboxCaption.textContent = '';
+    });
+  }
+</script>
