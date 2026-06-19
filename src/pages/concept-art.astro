@@ -18,9 +18,14 @@ const imageModules = import.meta.glob<ImageModule>('../assets/concept-art/*.{jpg
 });
 
 const captionOverrides: Record<string, string> = {
-  'Bosque Mecanico': 'Diseño de entorno donde naturaleza y estructura mecánica conviven.',
-  'Ciudad Flotante': 'Concept de localización elevada con arquitectura fantástica y silueta clara.',
-  'Laboratorio Costero': 'Exploración de escenario costero para una historia de ciencia y aventura.',
+  'Banshee 1': 'Diseño del personaje Banshee.',
+  'Banshee 2': 'Exploración de variantes, poses y expresiones faciales del personaje Banshee.',
+  'Lumo': 'Desarrollo del personaje Lumo para el libro "¿Qué hago con este enfado?".',
+  'Noah': 'Desarrollo del personaje Noah para el libro "¿Qué hago con este enfado?".',
+  'Kate Smith': 'Desarrollo del personaje Kate Smith para un videojuego.',
+  'Desarrollo De Personajes': 'Exploración de colores y variantes durante el desarrollo de un personaje.',
+  'Kate Smith Poses': 'Exploración de poses y variantes durante el desarrollo del personaje Kate Smith.',
+  'Viaje Al Centro De La Celula': 'Diseño de varios personajes para la obra "Viaje al centro de la célula".',
 };
 
 const formatTitle = (path: string) => {
@@ -68,7 +73,7 @@ const concepts = Object.entries(imageModules)
           class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
           aria-label="Ir al inicio"
         >
-          Nombre Artista
+          Moona
         </a>
         <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
           {

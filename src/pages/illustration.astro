@@ -18,10 +18,12 @@ const imageModules = import.meta.glob<ImageModule>('../assets/illustration/*.{jp
 });
 
 const captionOverrides: Record<string, string> = {
-  'Atlas Diminuto': 'Mapa ilustrado para una pequeña aventura editorial.',
-  'Jardin Secreto': 'Exploración botánica con formas orgánicas y una paleta luminosa.',
-  'Mensajera Lunar': 'Personaje narrativo inspirado en noches cálidas y viajes imaginarios.',
-  'Mercado De Manana': 'Escena cotidiana trabajada con bloques de color y composición simple.',
+  'Alice In Wonderland': 'Portada para la famosa novela de Lewis Carroll, Alicia en el País de las Maravillas.',
+  'Byler': 'Fan-art de Will Byers y Mike Wheeler, personajes de la serie Stranger Things.',
+  'Kate Smith Room': 'Habitación del personaje ficticio Kate Smith.',
+  'Moon Space': '',
+  'Picnic': '',
+  'Piplup Y Oshawott': 'Piplup y Oshawott, disfrutando de un baño juntos.',
 };
 
 const formatTitle = (path: string) => {
@@ -56,7 +58,7 @@ const illustrations = await Promise.all(
       content="Galería de ilustraciones personales con trabajos seleccionados de portfolio."
     />
     <meta name="robots" content="index, follow" />
-    <title>Illustration | Portfolio de Ilustración</title>
+    <title>Ilustración | Portfolio de Ilustración</title>
   </head>
   <body>
     <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
@@ -69,7 +71,7 @@ const illustrations = await Promise.all(
           class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
           aria-label="Ir al inicio"
         >
-          Nombre Artista
+          Moona
         </a>
         <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
           {
@@ -93,10 +95,10 @@ const illustrations = await Promise.all(
       <section class="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8 lg:py-24" aria-labelledby="gallery-title">
         <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Galería</p>
         <h1 id="gallery-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
-          Illustration
+          Ilustración
         </h1>
         <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]">
-          Una selección de ilustraciones cargadas automáticamente desde el directorio de imágenes del proyecto.
+          <!-- Una selección de ilustraciones cargadas automáticamente desde el directorio de imágenes del proyecto. -->
         </p>
       </section>
 
