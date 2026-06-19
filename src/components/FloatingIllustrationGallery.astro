@@ -14,6 +14,7 @@ type Props = {
   emptyDirectory?: string;
   emptyTitle?: string;
   itemLabel?: string;
+  unframed?: boolean;
 };
 
 const {
@@ -22,7 +23,16 @@ const {
   emptyDirectory = 'src/assets/illustration',
   emptyTitle = 'Todavía no hay ilustraciones',
   itemLabel = 'ilustración',
+  unframed = false,
 } = Astro.props;
+
+const buttonClass = unframed
+  ? 'group block w-full cursor-zoom-in transition duration-300 hover:-translate-y-2 hover:scale-[1.025] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]'
+  : 'group block w-full cursor-zoom-in rounded-[1.4rem] transition duration-300 hover:-translate-y-2 hover:scale-[1.025] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]';
+
+const imageClass = unframed
+  ? 'h-auto w-full object-contain transition duration-300'
+  : 'h-auto w-full rounded-[1.4rem] border-3 border-[#231f20] object-contain shadow-[8px_8px_0_#231f20] transition duration-300 group-hover:shadow-[12px_12px_0_#ee8d73]';
 ---
 
 <section class="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:pb-28" aria-label={ariaLabel}>
@@ -33,7 +43,7 @@ const {
           <li class="mb-7 break-inside-avoid">
             <button
               type="button"
-              class="group block w-full cursor-zoom-in rounded-[1.4rem] transition duration-300 hover:-translate-y-2 hover:scale-[1.025] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+              class={buttonClass}
               data-floating-gallery-button
               data-index={index}
               aria-label={`Ampliar ${itemLabel} ${image.title}`}
@@ -44,7 +54,7 @@ const {
                 alt={image.title}
                 loading={index < 3 ? 'eager' : 'lazy'}
                 decoding="async"
-                class="h-auto w-full rounded-[1.4rem] border-3 border-[#231f20] object-contain shadow-[8px_8px_0_#231f20] transition duration-300 group-hover:shadow-[12px_12px_0_#ee8d73]"
+                class={imageClass}
               />
             </button>
           </li>
