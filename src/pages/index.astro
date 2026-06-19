@@ -1,9 +1,10 @@
 ---
 import '../styles/global.css';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import profileImage from '../assets/img/pfp.webp';
 
-type ImageSource = string | { src: string; width?: number; height?: number };
-type ImageModule = { default: ImageSource };
+type ImageModule = { default: ImageMetadata };
 
 const navigation = [
   { label: 'Inicio', href: '/' },
@@ -18,15 +19,8 @@ const projectCoverModules = import.meta.glob<ImageModule>('../assets/img/*.{jpg,
 });
 
 const getProjectCover = (fileName: string) => {
-  const source = projectCoverModules[`../assets/img/${fileName}`]?.default;
-
-  if (!source) return undefined;
-
-  return {
-    src: typeof source === 'string' ? source : source.src,
-    width: typeof source === 'string' ? undefined : source.width,
-    height: typeof source === 'string' ? undefined : source.height,
-  };
+  // Mantener portadas como assets locales para poder optimizarlas con <Image />.
+  return projectCoverModules[`../assets/img/${fileName}`]?.default;
 };
 
 const projects = [
@@ -113,12 +107,12 @@ const projects = [
         <div class="grid w-full items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <figure class="mx-auto w-full max-w-sm lg:mx-0">
             <div class="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border-4 border-[#231f20] bg-[#ffd36e] p-4 shadow-[18px_18px_0_#231f20]">
-              <img
-                src={profileImage.src}
-                width={profileImage.width}
-                height={profileImage.height}
+              <Image
+                src={profileImage}
+                width={768}
                 alt="Foto de perfil de Moona"
                 class="h-full w-full rounded-[1.8rem] object-cover"
+                loading="eager"
                 decoding="async"
               />
             </div>
@@ -176,10 +170,9 @@ const projects = [
                     <div class={`aspect-[4/5] bg-gradient-to-br ${project.gradient} p-5`}>
                       {
                         project.cover ? (
-                          <img
-                            src={project.cover.src}
-                            width={project.cover.width}
-                            height={project.cover.height}
+                          <Image
+                            src={project.cover}
+                            width={640}
                             alt={`Portada del proyecto ${project.title}`}
                             loading="lazy"
                             decoding="async"

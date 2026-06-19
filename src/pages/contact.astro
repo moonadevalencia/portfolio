@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Image } from 'astro:assets';
 import contactImage from '../assets/img/foto-contacto-2.webp';
 
 const navigation = [
@@ -59,10 +60,9 @@ const navigation = [
         <div class="grid w-full items-center gap-10 rounded-[2.5rem] border-3 border-[#231f20] bg-[#fffaf2]/80 p-6 shadow-[12px_12px_0_#231f20] sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:p-12">
           <figure class="mx-auto flex w-full max-w-sm flex-col items-center text-center lg:mx-0 lg:items-start lg:text-left">
             <div class="aspect-square w-full overflow-hidden rounded-full border-4 border-[#231f20] bg-gradient-to-br from-[#ffad8f] via-[#f7d7ff] to-[#9bd5ff] p-4 shadow-[10px_10px_0_#ee8d73]">
-              <img
-                src={contactImage.src}
-                width={contactImage.width}
-                height={contactImage.height}
+              <Image
+                src={contactImage}
+                width={640}
                 alt="Foto de perfil de Moona"
                 class="h-full w-full rounded-full object-cover object-[50%_50%]"
                 decoding="async"
