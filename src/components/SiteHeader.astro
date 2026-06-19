@@ -1,0 +1,56 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+type Props = {
+  currentPath?: string;
+};
+
+const { currentPath = '/' } = Astro.props;
+
+const navigation = [
+  { label: 'Inicio', labelEn: 'Home', href: '/' },
+  { label: 'Ilustraciones', labelEn: 'Illustrations', href: '/illustration' },
+  { label: 'Concept Art', labelEn: 'Concept Art', href: '/concept-art' },
+  { label: 'Editorial', labelEn: 'Editorial', href: '/editorial' },
+  { label: 'Contacto', labelEn: 'Contact', href: '/contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
+  <nav
+    class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left"
+    aria-label="Navegación principal"
+    data-i18n-aria-label-es="Navegación principal"
+    data-i18n-aria-label-en="Main navigation"
+  >
+    <a
+      href="/"
+      class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
+      aria-label="Ir al inicio"
+      data-i18n-aria-label-es="Ir al inicio"
+      data-i18n-aria-label-en="Go to home"
+    >
+      Moona
+    </a>
+    <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+      <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
+        {
+          navigation.map((item) => (
+            <li>
+              <a
+                class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+                href={item.href}
+                aria-current={item.href === currentPath ? 'page' : undefined}
+                data-i18n-es={item.label}
+                data-i18n-en={item.labelEn}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <LanguageSwitcher />
+    </div>
+  </nav>
+</header>

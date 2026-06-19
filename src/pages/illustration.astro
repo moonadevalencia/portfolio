@@ -1,17 +1,11 @@
 ---
 import FloatingIllustrationGallery from '../components/FloatingIllustrationGallery.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import type { ImageMetadata } from 'astro';
 import '../styles/global.css';
 
 type ImageModule = { default: ImageMetadata };
-
-const navigation = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Ilustraciones', href: '/illustration' },
-  { label: 'Concept Art', href: '/concept-art' },
-  { label: 'Editorial', href: '/editorial' },
-  { label: 'Contacto', href: '/contact' },
-];
 
 const imageModules = import.meta.glob<ImageModule>('../assets/illustration/*.{jpg,jpeg,png,webp,avif,gif,svg}', {
   eager: true,
@@ -23,7 +17,16 @@ const captionOverrides: Record<string, string> = {
   'Kate Smith Room': 'Habitación del personaje ficticio Kate Smith.',
   'Moon Space': '',
   'Picnic': '',
-  'Piplup Y Oshawott': 'Piplup y Oshawott, disfrutando de un baño juntos.',
+  'Piplup & Oshawott': 'Piplup y Oshawott, disfrutando de un baño juntos.',
+};
+
+const captionOverridesEn: Record<string, string> = {
+  'Alice In Wonderland': 'Cover for Lewis Carroll\'s famous novel, Alice in Wonderland.',
+  'Byler': 'Fan art of Will Byers and Mike Wheeler, characters from Stranger Things.',
+  'Kate Smith Room': 'Room for the fictional character Kate Smith.',
+  'Moon Space': '',
+  'Picnic': '',
+  'Piplup & Oshawott': 'Piplup and Oshawott enjoying a bath together.',
 };
 
 const formatTitle = (path: string) => {
@@ -43,6 +46,7 @@ const illustrations = await Promise.all(
       image: module.default,
       title,
       caption: captionOverrides[title] ?? `Ilustración titulada ${title}.`,
+      captionEn: captionOverridesEn[title] ?? `Illustration titled ${title}.`,
     };
   })
 ).then((items) => items.sort((a, b) => a.title.localeCompare(b.title)));
@@ -56,48 +60,22 @@ const illustrations = await Promise.all(
     <meta
       name="description"
       content="Galería de ilustraciones personales con trabajos seleccionados de portfolio."
+      data-i18n-content-es="Galería de ilustraciones personales con trabajos seleccionados de portfolio."
+      data-i18n-content-en="Gallery of selected personal illustration work for the portfolio."
     />
     <meta name="robots" content="index, follow" />
-    <title>Ilustraciones | Portfolio de Ilustración</title>
+    <title data-i18n-es="Ilustraciones | Portfolio de Ilustración" data-i18n-en="Illustrations | Illustration Portfolio">Ilustraciones | Portfolio de Ilustración</title>
   </head>
   <body>
-    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
-      <nav
-        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left"
-        aria-label="Navegación principal"
-      >
-        <a
-          href="/"
-          class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
-          aria-label="Ir al inicio"
-        >
-          Moona
-        </a>
-        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
-          {
-            navigation.map((item) => (
-              <li>
-                <a
-                  class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
-                  href={item.href}
-                  aria-current={item.href === '/illustration' ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </header>
+    <SiteHeader currentPath="/illustration" />
 
     <main>
       <section class="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8 lg:py-24" aria-labelledby="gallery-title">
-        <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Galería</p>
-        <h1 id="gallery-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
+        <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]" data-i18n-es="Galería" data-i18n-en="Gallery">Galería</p>
+        <h1 id="gallery-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl" data-i18n-es="Ilustraciones" data-i18n-en="Illustrations">
           Ilustraciones
         </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]">
+        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]" data-i18n-es="Una selección de ilustraciones en las que exploro la narrativa visual, el color y la creación de personajes para dar forma a distintos mundos e historias." data-i18n-en="A selection of illustrations where I explore visual storytelling, color and character creation to shape different worlds and stories.">
           Una selección de ilustraciones en las que exploro la narrativa visual, el color y la creación de personajes para dar forma a distintos mundos e historias.
         </p>
       </section>
@@ -105,9 +83,6 @@ const illustrations = await Promise.all(
       <FloatingIllustrationGallery images={illustrations} unframed />
     </main>
 
-    <footer class="border-t border-[#231f20]/10 px-5 py-10 text-center text-sm text-[#59433b] sm:px-8">
-      <p><strong class="text-[#231f20]">Moona</strong> · Portfolio de ilustración y diseño gráfico.</p>
-      <p class="mt-2">© {new Date().getFullYear()} Moona. Todos los derechos reservados.</p>
-    </footer>
+    <SiteFooter />
   </body>
 </html>

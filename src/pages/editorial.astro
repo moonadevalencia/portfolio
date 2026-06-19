@@ -1,26 +1,22 @@
 ---
 import enfado from '../assets/editorial/paginas retoques ort3.webp';
 import celula from '../assets/editorial/PORTADAS CBM VIAJE AL CENTRO DE LA CELULA_Mesa de trabajo 1-02.webp';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import '../styles/global.css';
-
-const navigation = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Ilustraciones', href: '/illustration' },
-  { label: 'Concept Art', href: '/concept-art' },
-  { label: 'Editorial', href: '/editorial' },
-  { label: 'Contacto', href: '/contact' },
-];
 
 const projects = [
   {
     title: '¿Qué hago con este enfado?',
     description: 'Proyecto editorial infantil centrado en la gestión del enfado a través de una historia cercana y visual. Mediante ilustraciones narrativas, colores cálidos y personajes expresivos, el proyecto acompaña al lector en el reconocimiento de las emociones y en la búsqueda de herramientas para afrontarlas.',
+    descriptionEn: 'Children\'s editorial project focused on managing anger through a close and visual story. Through narrative illustrations, warm colors and expressive characters, the project guides readers as they recognize emotions and look for tools to deal with them.',
     href: '/editorial/que-hago-con-este-enfado',
     cover: enfado,
   },
   {
     title: 'Viaje al centro de la célula',
     description: 'Proyecto editorial de divulgación visual realizado para el Centro de Biología Molecular (CBM) Severo Ochoa. A través de ilustraciones narrativas y un lenguaje gráfico claro y accesible, el proyecto acerca conceptos científicos al público joven, transformando el mundo celular en una experiencia visual más cercana y comprensible.',
+    descriptionEn: 'Visual science communication editorial project created for the Severo Ochoa Molecular Biology Center (CBM). Through narrative illustrations and a clear, accessible graphic language, the project brings scientific concepts closer to young audiences, turning the cellular world into a more approachable visual experience.',
     href: '/editorial/viaje-al-centro-de-la-celula',
     cover: celula,
   }
@@ -35,49 +31,27 @@ const projects = [
     <meta
       name="description"
       content="Proyectos editoriales de portfolio con portadas ilustradas, descripción y páginas de detalle."
+      data-i18n-content-es="Proyectos editoriales de portfolio con portadas ilustradas, descripción y páginas de detalle."
+      data-i18n-content-en="Editorial portfolio projects with illustrated covers, descriptions and detail pages."
     />
     <meta name="robots" content="index, follow" />
-    <title>Editorial | Portfolio de Ilustración</title>
+    <title data-i18n-es="Editorial | Portfolio de Ilustración" data-i18n-en="Editorial | Illustration Portfolio">Editorial | Portfolio de Ilustración</title>
   </head>
   <body>
-    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
-      <nav
-        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left"
-        aria-label="Navegación principal"
-      >
-        <a href="/" class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]" aria-label="Ir al inicio">
-          Moona
-        </a>
-        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
-          {
-            navigation.map((item) => (
-              <li>
-                <a
-                  class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
-                  href={item.href}
-                  aria-current={item.href === '/editorial' ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </header>
+    <SiteHeader currentPath="/editorial" />
 
     <main>
       <section class="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8 lg:py-24" aria-labelledby="editorial-title">
         <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Editorial</p>
-        <h1 id="editorial-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
+        <h1 id="editorial-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl" data-i18n-es="Portadas y proyectos editoriales" data-i18n-en="Covers and editorial projects">
           Portadas y proyectos editoriales
         </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]">
+        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]" data-i18n-es="Selección de proyectos editoriales donde la ilustración acompaña la narrativa, el diseño y la comunicación visual de cada propuesta." data-i18n-en="A selection of editorial projects where illustration supports the narrative, design and visual communication of each proposal.">
           Selección de proyectos editoriales donde la ilustración acompaña la narrativa, el diseño y la comunicación visual de cada propuesta.
         </p>
       </section>
 
-      <section class="mx-auto max-w-6xl px-5 pb-20 sm:px-8 lg:pb-28" aria-label="Proyectos editoriales">
+      <section class="mx-auto max-w-6xl px-5 pb-20 sm:px-8 lg:pb-28" aria-label="Proyectos editoriales" data-i18n-aria-label-es="Proyectos editoriales" data-i18n-aria-label-en="Editorial projects">
         <ul class="grid items-start justify-center gap-10 md:grid-cols-2 lg:gap-16">
           {
             projects.map((project) => (
@@ -91,10 +65,12 @@ const projects = [
                     width={project.cover.width}
                     height={project.cover.height}
                     alt={`Portada de ${project.title}`}
+                    data-i18n-alt-es={`Portada de ${project.title}`}
+                    data-i18n-alt-en={`Cover of ${project.title}`}
                     class="mx-auto aspect-[3/4] w-full max-w-sm rounded-[1.6rem] object-cover transition duration-300 group-hover:rotate-1 group-hover:scale-[1.02]"
                   />
                   <h2 class="mt-6 font-serif text-3xl font-black text-[#231f20]">{project.title}</h2>
-                  <p class="mx-auto mt-3 max-w-md text-base leading-7 text-[#59433b]">{project.description}</p>
+                  <p class="mx-auto mt-3 max-w-md text-base leading-7 text-[#59433b]" data-i18n-es={project.description} data-i18n-en={project.descriptionEn}>{project.description}</p>
                 </a>
               </li>
             ))
@@ -103,9 +79,6 @@ const projects = [
       </section>
     </main>
 
-    <footer class="border-t border-[#231f20]/10 px-5 py-10 text-center text-sm text-[#59433b] sm:px-8">
-      <p><strong class="text-[#231f20]">Moona</strong> · Portfolio de ilustración y diseño gráfico.</p>
-      <p class="mt-2">© {new Date().getFullYear()} Moona. Todos los derechos reservados.</p>
-    </footer>
+    <SiteFooter />
   </body>
 </html>

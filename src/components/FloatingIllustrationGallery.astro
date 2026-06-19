@@ -6,14 +6,18 @@ type FloatingImage = {
   image: ImageMetadata;
   title: string;
   caption: string;
+  captionEn?: string;
 };
 
 type Props = {
   images: FloatingImage[];
   ariaLabel?: string;
+  ariaLabelEn?: string;
   emptyDirectory?: string;
   emptyTitle?: string;
+  emptyTitleEn?: string;
   itemLabel?: string;
+  itemLabelEn?: string;
   unframed?: boolean;
   showCaptions?: boolean;
 };
@@ -21,9 +25,12 @@ type Props = {
 const {
   images,
   ariaLabel = 'Listado de ilustraciones',
+  ariaLabelEn = 'Illustration list',
   emptyDirectory = 'src/assets/illustration',
   emptyTitle = 'Todavía no hay ilustraciones',
+  emptyTitleEn = 'There are no illustrations yet',
   itemLabel = 'ilustración',
+  itemLabelEn = 'illustration',
   unframed = false,
   showCaptions = true,
 } = Astro.props;
@@ -37,7 +44,7 @@ const imageClass = unframed
   : 'h-auto w-full rounded-[1.4rem] border-3 border-[#231f20] object-contain shadow-[8px_8px_0_#231f20] transition duration-300 group-hover:shadow-[12px_12px_0_#ee8d73]';
 ---
 
-<section class="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:pb-28" aria-label={ariaLabel}>
+<section class="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:pb-28" aria-label={ariaLabel} data-i18n-aria-label-es={ariaLabel} data-i18n-aria-label-en={ariaLabelEn}>
   {
     images.length > 0 ? (
       <ul class="columns-1 gap-7 sm:columns-2 lg:columns-3 [column-fill:_balance]">
@@ -49,6 +56,8 @@ const imageClass = unframed
               data-floating-gallery-button
               data-index={index}
               aria-label={`Ampliar ${itemLabel} ${image.title}`}
+              data-i18n-aria-label-es={`Ampliar ${itemLabel} ${image.title}`}
+              data-i18n-aria-label-en={`Expand ${itemLabelEn} ${image.title}`}
             >
               <Image
                 src={image.image}
@@ -64,8 +73,8 @@ const imageClass = unframed
       </ul>
     ) : (
       <div class="px-6 py-16 text-center">
-        <h2 class="font-serif text-3xl font-black text-[#231f20]">{emptyTitle}</h2>
-        <p class="mx-auto mt-4 max-w-xl leading-7 text-[#59433b]">
+        <h2 class="font-serif text-3xl font-black text-[#231f20]" data-i18n-es={emptyTitle} data-i18n-en={emptyTitleEn}>{emptyTitle}</h2>
+        <p class="mx-auto mt-4 max-w-xl leading-7 text-[#59433b]" data-i18n-es={`Añade imágenes en ${emptyDirectory} y se mostrarán aquí automáticamente.`} data-i18n-en={`Add images to ${emptyDirectory} and they will be shown here automatically.`}>
           Añade imágenes en <code class="rounded bg-[#231f20]/10 px-2 py-1">{emptyDirectory}</code> y se mostrarán aquí automáticamente.
         </p>
       </div>
@@ -77,6 +86,8 @@ const imageClass = unframed
   class="m-auto max-h-[92vh] w-[min(92vw,76rem)] overflow-hidden border-3 border-[#231f20] bg-[#fffaf2] p-3 backdrop:bg-[#231f20]/65"
   data-floating-lightbox
   aria-label="Vista ampliada de ilustración"
+  data-i18n-aria-label-es="Vista ampliada de ilustración"
+  data-i18n-aria-label-en="Expanded illustration view"
 >
   <figure>
     {
@@ -96,7 +107,7 @@ const imageClass = unframed
             showCaptions && (
               <figcaption class="px-2 pb-3 pt-5 text-center">
                 <strong class="block font-serif text-2xl font-black text-[#231f20]">{image.title}</strong>
-                <span class="mx-auto mt-2 block max-w-3xl text-base leading-7 text-[#59433b]">{image.caption}</span>
+                <span class="mx-auto mt-2 block max-w-3xl text-base leading-7 text-[#59433b]" data-i18n-es={image.caption} data-i18n-en={image.captionEn ?? image.caption}>{image.caption}</span>
               </figcaption>
             )
           }

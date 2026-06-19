@@ -1,18 +1,12 @@
 ---
 import '../styles/global.css';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import profileImage from '../assets/img/pfp.webp';
 
 type ImageModule = { default: ImageMetadata };
-
-const navigation = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Ilustraciones', href: '/illustration' },
-  { label: 'Concept Art', href: '/concept-art' },
-  { label: 'Editorial', href: '/editorial' },
-  { label: 'Contacto', href: '/contact' },
-];
 
 const projectCoverModules = import.meta.glob<ImageModule>('../assets/img/*.{jpg,jpeg,png,webp,avif,gif,svg}', {
   eager: true,
@@ -71,36 +65,14 @@ const projects = [
     <meta
       name="description"
       content="Portfolio personal de ilustración, diseño gráfico, character design, visual development y proyectos editoriales."
+      data-i18n-content-es="Portfolio personal de ilustración, diseño gráfico, character design, visual development y proyectos editoriales."
+      data-i18n-content-en="Personal portfolio for illustration, graphic design, character design, visual development and editorial projects."
     />
     <meta name="robots" content="index, follow" />
-    <title>Inicio | Portfolio de Moona</title>
+    <title data-i18n-es="Inicio | Portfolio de Moona" data-i18n-en="Home | Moona Portfolio">Inicio | Portfolio de Moona</title>
   </head>
   <body>
-    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
-      <nav
-        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left"
-        aria-label="Navegación principal"
-      >
-        <a
-          href="/"
-          class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
-          aria-label="Ir al inicio"
-        >
-          Moona
-        </a>
-        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
-          {
-            navigation.map((item) => (
-              <li>
-                <a class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]" href={item.href}>
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </header>
+    <SiteHeader currentPath="/" />
 
     <main>
       <section class="mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl place-items-center px-5 py-16 sm:px-8 lg:py-24" aria-labelledby="hero-title">
@@ -111,20 +83,22 @@ const projects = [
                 src={profileImage}
                 width={768}
                 alt="Foto de perfil de Moona"
+                data-i18n-alt-es="Foto de perfil de Moona"
+                data-i18n-alt-en="Profile photo of Moona"
                 class="h-full w-full rounded-[1.8rem] object-cover"
                 loading="eager"
                 decoding="async"
               />
             </div>
-            <figcaption class="sr-only">Foto de perfil de Moona.</figcaption>
+            <figcaption class="sr-only" data-i18n-es="Foto de perfil de Moona." data-i18n-en="Profile photo of Moona.">Foto de perfil de Moona.</figcaption>
           </figure>
 
           <article class="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
-            <p class="mb-4 text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Ilustración · Concept Art</p>
-            <h1 id="hero-title" class="font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
+            <p class="mb-4 text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]" data-i18n-es="Ilustración · Concept Art" data-i18n-en="Illustration · Concept Art">Ilustración · Concept Art</p>
+            <h1 id="hero-title" class="font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl" data-i18n-es="¡Hola! Soy Luna" data-i18n-en="Hi! I'm Luna">
               ¡Hola! Soy Luna
             </h1>
-            <p class="mt-7 text-lg leading-8 text-[#59433b] sm:text-xl">
+            <p class="mt-7 text-lg leading-8 text-[#59433b] sm:text-xl" data-i18n-es="Soy Luna López, también conocida como Moona, ilustradora y concept artist. Desde pequeña me ha interesado contar historias a través de la imagen y el vídeo, una inquietud que con el tiempo me llevó a formarme en el ámbito del arte y el diseño. He finalizado el Grado de Ilustración y Diseño Gráfico en la EASD València. Actualmente, mi trabajo se centra especialmente en la ilustración y la animación, explorando formas visuales de dar vida a ideas, historias y proyectos." data-i18n-en="I am Luna López, also known as Moona, an illustrator and concept artist. Since I was little, I have been interested in telling stories through images and video, a curiosity that eventually led me to train in art and design. I have completed the Degree in Illustration and Graphic Design at EASD València. Today, my work focuses especially on illustration and animation, exploring visual ways to bring ideas, stories and projects to life.">
               Soy Luna López, también conocida como Moona, ilustradora y concept artist. Desde pequeña me ha interesado contar historias a través de la imagen y el vídeo, una inquietud que con el tiempo me llevó a formarme en el ámbito del arte y el diseño. He finalizado el Grado de Ilustración y Diseño Gráfico en la EASD València. Actualmente, mi trabajo se centra especialmente en la ilustración y la animación, explorando formas visuales de dar vida a ideas, historias y proyectos.
             </p>
             <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
@@ -138,7 +112,7 @@ const projects = [
                 href="/contact"
                 class="rounded-full border-2 border-[#231f20] bg-[#fffaf2] px-7 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#231f20] transition hover:-translate-y-1 hover:bg-[#ffd36e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#231f20]"
               >
-                Contacto
+                <span data-i18n-es="Contacto" data-i18n-en="Contact">Contacto</span>
               </a>
             </div>
           </article>
@@ -199,10 +173,7 @@ const projects = [
 
     </main>
 
-    <footer class="border-t border-[#231f20]/10 px-5 py-10 text-center text-sm text-[#59433b] sm:px-8">
-      <p><strong class="text-[#231f20]">Moona</strong> · Portfolio de ilustración y diseño gráfico.</p>
-      <p class="mt-2">© {new Date().getFullYear()} Moona. Todos los derechos reservados.</p>
-    </footer>
+    <SiteFooter />
 
     <script>
       const scroller = document.querySelector('[data-project-scroll]');

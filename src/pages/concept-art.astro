@@ -1,17 +1,11 @@
 ---
 import FloatingIllustrationGallery from '../components/FloatingIllustrationGallery.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import type { ImageMetadata } from 'astro';
 import '../styles/global.css';
 
 type ImageModule = { default: ImageMetadata };
-
-const navigation = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Ilustraciones', href: '/illustration' },
-  { label: 'Concept Art', href: '/concept-art' },
-  { label: 'Editorial', href: '/editorial' },
-  { label: 'Contacto', href: '/contact' },
-];
 
 const imageModules = import.meta.glob<ImageModule>('../assets/concept-art/*.{jpg,jpeg,png,webp,avif,gif,svg}', {
   eager: true,
@@ -26,6 +20,17 @@ const captionOverrides: Record<string, string> = {
   'Desarrollo De Personajes': 'Exploración de colores y variantes durante el desarrollo de un personaje.',
   'Kate Smith Poses': 'Exploración de poses y variantes durante el desarrollo del personaje Kate Smith.',
   'Viaje Al Centro De La Celula': 'Diseño de varios personajes para la obra "Viaje al centro de la célula".',
+};
+
+const captionOverridesEn: Record<string, string> = {
+  'Banshee 1': 'Character design for Banshee.',
+  'Banshee 2': 'Exploration of variants, poses and facial expressions for Banshee.',
+  'Lumo': 'Character development for Lumo for the book "¿Qué hago con este enfado?".',
+  'Noah': 'Character development for Noah for the book "¿Qué hago con este enfado?".',
+  'Kate Smith': 'Character development for Kate Smith for a video game.',
+  'Desarrollo De Personajes': 'Color and variant exploration during character development.',
+  'Kate Smith Poses': 'Pose and variant exploration during the development of Kate Smith.',
+  'Viaje Al Centro De La Celula': 'Design of several characters for "Viaje al centro de la célula".',
 };
 
 const formatTitle = (path: string) => {
@@ -45,6 +50,7 @@ const concepts = Object.entries(imageModules)
       image: module.default,
       title,
       caption: captionOverrides[title] ?? `Concept art titulado ${title}.`,
+      captionEn: captionOverridesEn[title] ?? `Concept art titled ${title}.`,
     };
   })
   .sort((a, b) => a.title.localeCompare(b.title));
@@ -58,48 +64,22 @@ const concepts = Object.entries(imageModules)
     <meta
       name="description"
       content="Galería de concept art con exploraciones visuales, escenarios, personajes y desarrollo de ideas."
+      data-i18n-content-es="Galería de concept art con exploraciones visuales, escenarios, personajes y desarrollo de ideas."
+      data-i18n-content-en="Concept art gallery with visual explorations, environments, characters and idea development."
     />
     <meta name="robots" content="index, follow" />
-    <title>Concept Art | Portfolio de Ilustración</title>
+    <title data-i18n-es="Concept Art | Portfolio de Ilustración" data-i18n-en="Concept Art | Illustration Portfolio">Concept Art | Portfolio de Ilustración</title>
   </head>
   <body>
-    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
-      <nav
-        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left"
-        aria-label="Navegación principal"
-      >
-        <a
-          href="/"
-          class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]"
-          aria-label="Ir al inicio"
-        >
-          Moona
-        </a>
-        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
-          {
-            navigation.map((item) => (
-              <li>
-                <a
-                  class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
-                  href={item.href}
-                  aria-current={item.href === '/concept-art' ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </header>
+    <SiteHeader currentPath="/concept-art" />
 
     <main>
       <section class="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8 lg:py-24" aria-labelledby="gallery-title">
-        <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Galería</p>
+        <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]" data-i18n-es="Galería" data-i18n-en="Gallery">Galería</p>
         <h1 id="gallery-title" class="mx-auto mt-4 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl lg:text-7xl">
           Concept Art
         </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]">
+        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#59433b]" data-i18n-es="Una muestra de procesos visuales donde desarrollo personajes, escenarios e ideas, explorando formas, expresiones y estilos antes de llegar a una propuesta final." data-i18n-en="A selection of visual processes where I develop characters, environments and ideas, exploring shapes, expressions and styles before reaching a final proposal.">
           Una muestra de procesos visuales donde desarrollo personajes, escenarios e ideas, explorando formas, expresiones y estilos antes de llegar a una propuesta final.
         </p>
       </section>
@@ -107,16 +87,15 @@ const concepts = Object.entries(imageModules)
       <FloatingIllustrationGallery
         images={concepts}
         ariaLabel="Listado de concept art"
+        ariaLabelEn="Concept art list"
         emptyDirectory="src/assets/concept-art"
         emptyTitle="Todavía no hay concept art"
+        emptyTitleEn="There is no concept art yet"
         itemLabel="concept art"
         unframed
       />
     </main>
 
-    <footer class="border-t border-[#231f20]/10 px-5 py-10 text-center text-sm text-[#59433b] sm:px-8">
-      <p><strong class="text-[#231f20]">Moona</strong> · Portfolio de ilustración y diseño gráfico.</p>
-      <p class="mt-2">© {new Date().getFullYear()} Moona. Todos los derechos reservados.</p>
-    </footer>
+    <SiteFooter />
   </body>
 </html>

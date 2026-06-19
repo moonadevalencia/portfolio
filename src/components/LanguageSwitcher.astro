@@ -1,0 +1,85 @@
+---
+---
+
+<div class="language-switcher inline-flex rounded-full border-2 border-[#231f20] bg-[#fffaf2] p-1 text-xs font-black uppercase tracking-[0.16em] text-[#231f20] shadow-[4px_4px_0_#ee8d73]" aria-label="Selector de idioma" data-i18n-aria-label-es="Selector de idioma" data-i18n-aria-label-en="Language selector">
+  <button
+    type="button"
+    class="language-option rounded-full px-3 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+    data-language-option="es"
+    aria-pressed="true"
+  >
+    ES
+  </button>
+  <button
+    type="button"
+    class="language-option rounded-full px-3 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]"
+    data-language-option="en"
+    aria-pressed="false"
+  >
+    EN
+  </button>
+</div>
+
+<script>
+  const supportedLanguages = ['es', 'en'] as const;
+  type SupportedLanguage = (typeof supportedLanguages)[number];
+
+  const getStoredLanguage = (): SupportedLanguage => {
+    const storedLanguage = window.localStorage.getItem('portfolio-language');
+    return supportedLanguages.includes(storedLanguage as SupportedLanguage) ? (storedLanguage as SupportedLanguage) : 'es';
+  };
+
+  const toDatasetKey = (attribute: string, language: SupportedLanguage) => {
+    const prefix = attribute
+      .split('-')
+      .map((part) => part.slice(0, 1).toUpperCase() + part.slice(1))
+      .join('');
+
+    return `i18n${prefix}${language === 'en' ? 'En' : 'Es'}`;
+  };
+
+  const translatePage = (language: SupportedLanguage) => {
+    document.documentElement.lang = language;
+
+    document.querySelectorAll<HTMLElement>('[data-i18n-es][data-i18n-en]').forEach((element) => {
+      element.textContent = language === 'en' ? element.dataset.i18nEn ?? '' : element.dataset.i18nEs ?? '';
+    });
+
+    ['aria-label', 'alt', 'content', 'title'].forEach((attribute) => {
+      document.querySelectorAll<HTMLElement>(`[data-i18n-${attribute}-es][data-i18n-${attribute}-en]`).forEach((element) => {
+        const value = element.dataset[toDatasetKey(attribute, language)];
+
+        if (value) {
+          element.setAttribute(attribute, value);
+        }
+      });
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('[data-language-option]').forEach((button) => {
+      const isActive = button.dataset.languageOption === language;
+      button.dataset.active = String(isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+
+    window.localStorage.setItem('portfolio-language', language);
+  };
+
+  const initLanguageSwitcher = () => {
+    document.querySelectorAll<HTMLButtonElement>('[data-language-option]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const language = button.dataset.languageOption;
+        if (supportedLanguages.includes(language as SupportedLanguage)) {
+          translatePage(language as SupportedLanguage);
+        }
+      });
+    });
+
+    translatePage(getStoredLanguage());
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSwitcher, { once: true });
+  } else {
+    initLanguageSwitcher();
+  }
+</script>

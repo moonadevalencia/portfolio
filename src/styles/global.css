@@ -46,6 +46,11 @@ body {
   background: #ee8d73;
 }
 
+.language-option[data-active="true"] {
+  background: #231f20;
+  color: #fffaf2;
+}
+
 .wave-card {
   animation: wave-float 5.5s ease-in-out infinite;
 }

@@ -1,17 +1,10 @@
 ---
 import FloatingIllustrationGallery from '../../components/FloatingIllustrationGallery.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
 import type { ImageMetadata } from 'astro';
 import '../../styles/global.css';
 
 type ImageModule = { default: ImageMetadata };
-
-const navigation = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Ilustraciones', href: '/illustration' },
-  { label: 'Concept Art', href: '/concept-art' },
-  { label: 'Editorial', href: '/editorial' },
-  { label: 'Contacto', href: '/contact' },
-];
 
 const galleryModules = import.meta.glob<ImageModule>(
   '../../assets/editorial/que-hago-con-este-enfado/*.{jpg,jpeg,png,webp,avif,gif,svg}',
@@ -35,6 +28,7 @@ const galleryImages = Object.entries(galleryModules)
       image: module.default,
       title,
       caption: `Imagen del proyecto editorial ¿Qué hago con este enfado?: ${title}.`,
+      captionEn: `Image from the editorial project ¿Qué hago con este enfado?: ${title}.`,
     };
   }).sort((a, b) => a.title.localeCompare(b.title));
 ---
@@ -44,38 +38,28 @@ const galleryImages = Object.entries(galleryModules)
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Detalle del proyecto editorial ¿Qué hago con este enfado?, con explicación conceptual y galería de imágenes." />
+    <meta
+      name="description"
+      content="Detalle del proyecto editorial ¿Qué hago con este enfado?, con explicación conceptual y galería de imágenes."
+      data-i18n-content-es="Detalle del proyecto editorial ¿Qué hago con este enfado?, con explicación conceptual y galería de imágenes."
+      data-i18n-content-en="Detail page for the editorial project ¿Qué hago con este enfado?, with concept explanation and image gallery."
+    />
     <meta name="robots" content="index, follow" />
-    <title>¿Qué hago con este enfado? | Editorial</title>
+    <title data-i18n-es="¿Qué hago con este enfado? | Editorial" data-i18n-en="¿Qué hago con este enfado? | Editorial">¿Qué hago con este enfado? | Editorial</title>
   </head>
   <body>
-    <header class="sticky top-0 z-50 border-b border-[#231f20]/10 bg-[#fffaf2]/85 backdrop-blur-xl">
-      <nav class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-5 text-center sm:px-8 lg:flex-row lg:text-left" aria-label="Navegación principal">
-        <a href="/" class="font-serif text-2xl font-black tracking-tight text-[#231f20] transition hover:text-[#d95c45]" aria-label="Ir al inicio">Moona</a>
-        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-bold uppercase tracking-[0.16em] text-[#59433b]">
-          {
-            navigation.map((item) => (
-              <li>
-                <a class="transition hover:text-[#d95c45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]" href={item.href}>
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </header>
+    <SiteHeader currentPath="/editorial" />
 
     <main>
       <section class="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8 lg:py-24" aria-labelledby="project-title">
         <article class="mx-auto rounded-[2rem] border-3 border-[#231f20] bg-[#fffaf2]/85 p-6 shadow-[10px_10px_0_#ee8d73] sm:p-8 lg:p-10">
-          <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]">Proyecto editorial</p>
+          <p class="text-sm font-black uppercase tracking-[0.32em] text-[#d95c45]" data-i18n-es="Proyecto editorial" data-i18n-en="Editorial project">Proyecto editorial</p>
           <h1 id="project-title" class="mx-auto mt-3 max-w-4xl font-serif text-5xl font-black leading-[0.95] tracking-tight text-[#231f20] sm:text-6xl">¿Qué hago con este enfado?</h1>
-          <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[#59433b]">
+          <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[#59433b]" data-i18n-es="Proyecto editorial infantil centrado en la gestión del enfado a través de una historia cercana y visual. Mediante ilustraciones narrativas, colores cálidos y personajes expresivos, el proyecto acompaña al lector en el reconocimiento de las emociones y en la búsqueda de herramientas para afrontarlas." data-i18n-en="Children's editorial project focused on managing anger through a close and visual story. Through narrative illustrations, warm colors and expressive characters, the project guides readers as they recognize emotions and look for tools to deal with them.">
             Proyecto editorial infantil centrado en la gestión del enfado a través de una historia cercana y visual. Mediante ilustraciones narrativas, colores cálidos y personajes expresivos, el proyecto acompaña al lector en el reconocimiento de las emociones y en la búsqueda de herramientas para afrontarlas.
           </p>
           <a href="/editorial" class="mt-8 inline-flex rounded-full border-2 border-[#231f20] bg-[#ffd36e] px-7 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#231f20] transition hover:-translate-y-1 hover:bg-[#ffad8f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d95c45]">
-            Volver
+            <span data-i18n-es="Volver" data-i18n-en="Back">Volver</span>
           </a>
         </article>
       </section>
@@ -83,9 +67,12 @@ const galleryImages = Object.entries(galleryModules)
       <FloatingIllustrationGallery
         images={galleryImages}
         ariaLabel="Galería del proyecto ¿Qué hago con este enfado?"
+        ariaLabelEn="Gallery for the project ¿Qué hago con este enfado?"
         emptyDirectory="src/assets/editorial/que-hago-con-este-enfado"
         emptyTitle="Todavía no hay imágenes para este proyecto"
+        emptyTitleEn="There are no images for this project yet"
         itemLabel="imagen editorial"
+        itemLabelEn="editorial image"
         unframed
         showCaptions={false}
       />
