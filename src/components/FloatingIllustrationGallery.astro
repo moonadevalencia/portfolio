@@ -15,6 +15,7 @@ type Props = {
   emptyTitle?: string;
   itemLabel?: string;
   unframed?: boolean;
+  showCaptions?: boolean;
 };
 
 const {
@@ -24,6 +25,7 @@ const {
   emptyTitle = 'Todavía no hay ilustraciones',
   itemLabel = 'ilustración',
   unframed = false,
+  showCaptions = true,
 } = Astro.props;
 
 const buttonClass = unframed
@@ -90,10 +92,14 @@ const imageClass = unframed
               class="max-h-[76vh] max-w-full object-contain"
             />
           </div>
-          <figcaption class="px-2 pb-3 pt-5 text-center">
-            <strong class="block font-serif text-2xl font-black text-[#231f20]">{image.title}</strong>
-            <span class="mx-auto mt-2 block max-w-3xl text-base leading-7 text-[#59433b]">{image.caption}</span>
-          </figcaption>
+          {
+            showCaptions && (
+              <figcaption class="px-2 pb-3 pt-5 text-center">
+                <strong class="block font-serif text-2xl font-black text-[#231f20]">{image.title}</strong>
+                <span class="mx-auto mt-2 block max-w-3xl text-base leading-7 text-[#59433b]">{image.caption}</span>
+              </figcaption>
+            )
+          }
         </div>
       ))
     }

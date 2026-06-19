@@ -36,8 +36,7 @@ const galleryImages = Object.entries(galleryModules)
       title,
       caption: `Imagen del proyecto editorial ¿Qué hago con este enfado?: ${title}.`,
     };
-  })
-  .sort((a, b) => a.title.localeCompare(b.title));
+  }).sort((a, b) => a.title.localeCompare(b.title));
 ---
 
 <!doctype html>
@@ -91,6 +90,7 @@ const galleryImages = Object.entries(galleryModules)
         emptyTitle="Todavía no hay imágenes para este proyecto"
         itemLabel="imagen editorial"
         unframed
+        showCaptions={false}
       />
     </main>
   </body>
