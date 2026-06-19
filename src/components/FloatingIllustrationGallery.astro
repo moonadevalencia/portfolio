@@ -72,7 +72,7 @@ const imageClass = unframed
 </section>
 
 <dialog
-  class="m-auto max-h-[92vh] w-[min(92vw,76rem)] overflow-hidden rounded-[2rem] border-3 border-[#231f20] bg-[#fffaf2] p-3 shadow-[14px_14px_0_#231f20] backdrop:bg-[#231f20]/65"
+  class="m-auto max-h-[92vh] w-[min(92vw,76rem)] overflow-hidden border-3 border-[#231f20] bg-[#fffaf2] p-3 backdrop:bg-[#231f20]/65"
   data-floating-lightbox
   aria-label="Vista ampliada de ilustración"
 >
@@ -80,14 +80,16 @@ const imageClass = unframed
     {
       images.map((image, index) => (
         <div data-floating-lightbox-panel data-index={index} hidden>
-          <Image
-            src={image.image}
-            width={1600}
-            alt={image.title}
-            loading="lazy"
-            decoding="async"
-            class="max-h-[76vh] w-full rounded-[1.4rem] object-contain"
-          />
+          <div class="flex justify-center overflow-hidden">
+            <Image
+              src={image.image}
+              width={1600}
+              alt={image.title}
+              loading="lazy"
+              decoding="async"
+              class="max-h-[76vh] max-w-full object-contain"
+            />
+          </div>
           <figcaption class="px-2 pb-3 pt-5 text-center">
             <strong class="block font-serif text-2xl font-black text-[#231f20]">{image.title}</strong>
             <span class="mx-auto mt-2 block max-w-3xl text-base leading-7 text-[#59433b]">{image.caption}</span>
